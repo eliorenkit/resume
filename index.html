@@ -64,20 +64,94 @@
     .card {
       transition: all 0.3s ease;
     }
-  </style>
+
+     /* --- Loader --- */
+    #preloader {
+      background: #000;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .wire {
+      height: 4px;
+      width: 50%;
+      background-color: red;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .wire.left {
+      left: -50%;
+      background-color: #3b82f6;
+      animation: slideLeft 2s ease-out forwards;
+    }
+
+    .wire.right {
+      right: -50%;
+      background-color: red;
+      animation: slideRight 2s ease-out forwards;
+    }
+
+    .spark {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: yellow;
+      border-radius: 50%;
+      opacity: 0;
+      animation: sparkFlash 0.4s ease 2s forwards;
+    }
+
+    .loading-text {
+      color: white;
+      font-size: 1.5rem;
+      margin-top: 80px;
+      font-family: monospace;
+    }
+
+    @keyframes slideLeft {
+      to { left: 50%; transform: translateX(-100%); }
+    }
+
+    @keyframes slideRight {
+      to { right: 50%; transform: translateX(100%); }
+    }
+
+    @keyframes sparkFlash {
+      0% { opacity: 0; }
+      50% { opacity: 1; transform: scale(1.5); }
+      100% { opacity: 0; }
+    }
+</style>
 </head>
 
 <body class="bg-white text-gray-900 font-sans">
 
-  <!-- Hero Section -->
-  <section class="h-screen hero flex items-center justify-center text-white">
-   <div class="glass p-10 rounded-lg text-center" data-aos="zoom-in">
-  <img src="image\OIP.jpeg" alt="Profile Photo" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-white shadow-lg" />
-  <h1 class="text-5xl font-bold mb-4">Hi, I'm Marshal Basumatary</h1>
-  <p class="text-xl mb-6">Instrumentation Engineer | Arduino Coder | Job Seeker</p>
-  <a href="#contact" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded">Get In Touch</a>
+   <!-- Wire Animation Preloader -->
+ <div id="preloader">
+  <div class="wire left"></div>
+  <div class="wire right"></div>
+  <div class="spark">⚡</div>
+  <div class="loading-text">Loading Engineer Portfolio...</div>
 </div>
 
+  <!-- Hero Section -->
+  <section class="h-screen hero flex items-center justify-center text-white">
+    <div class="glass p-10 rounded-lg text-center" data-aos="zoom-in">
+      <img src="image\OIP.jpeg" alt="Profile Photo" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-white shadow-lg" />
+      <h1 class="text-5xl font-bold mb-4">Hi, I'm Marshal Basumatary</h1>
+      <p class="text-xl mb-6">Instrumentation Engineer | Arduino Coder | Job Seeker</p>
+      <a href="#contact" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded">Get In Touch</a>
+    </div>
   </section>
 
   <!-- Sticky Navbar -->
@@ -199,7 +273,13 @@
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
     AOS.init();
+
+      // Preloader script
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        document.getElementById("preloader").style.display = "none";
+      }, 2580);
+    });
   </script>
 </body>
-
 </html>
